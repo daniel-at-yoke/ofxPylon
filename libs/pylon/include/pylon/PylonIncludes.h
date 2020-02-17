@@ -125,6 +125,7 @@
 #include <pylon/InstantCameraArray.h>                   // CInstantCameraArray, includes CInstantCamera
 #include <pylon/AcquireContinuousConfiguration.h>       // CAcquireContinuousConfiguration
 #include <pylon/SoftwareTriggerConfiguration.h>         // CSoftwareTriggerConfiguration
+#include <pylon/HardwareTriggerConfiguration.h>         // CHardwareTriggerConfiguration
 
 #include <pylon/ParameterIncludes.h> // Parameter classes
 
