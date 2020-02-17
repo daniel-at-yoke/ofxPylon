@@ -43,7 +43,7 @@ ofxPylon::Camera::Camera() {
 
 	Pylon::PylonInitialize();
 
-	configHandler = shared_ptr<Pylon::CAcquireContinuousConfiguration>(new Pylon::CAcquireContinuousConfiguration);
+	configHandler = shared_ptr<Pylon::CHardwareTriggerConfiguration>(new Pylon::CHardwareTriggerConfiguration());
 	imageHandler = shared_ptr<Pylon::CImageEventHandler>(new ImageEventHandler(this));
 }
 
