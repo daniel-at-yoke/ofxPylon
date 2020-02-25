@@ -83,6 +83,21 @@ bool ofxPylon::Camera::open() {
 		camera->RegisterConfiguration(configHandler.get(), Pylon::RegistrationMode_ReplaceAll, Pylon::Ownership_ExternalOwnership);
 		camera->RegisterImageEventHandler(imageHandler.get(), Pylon::RegistrationMode_ReplaceAll, Pylon::Ownership_ExternalOwnership);
 		camera->Open();
+
+		Pylon::CDeviceInfo cameraInfo = camera->GetDeviceInfo();
+		ofLogNotice("ofxPylon::Camera") << "Camera info:";
+		ofLogNotice("ofxPylon::Camera") << "Name:       " << cameraInfo.GetFriendlyName();
+		ofLogNotice("ofxPylon::Camera") << "Serial #:   " << (cameraInfo.IsSerialNumberAvailable() ? cameraInfo.GetSerialNumber() : "N/A");
+		ofLogNotice("ofxPylon::Camera") << "Model:      " << (cameraInfo.IsModelNameAvailable() ? cameraInfo.GetModelName() : "N/A");
+		if (cameraInfo.IsDeviceGUIDAvailable()) {
+			// USB
+			ofLogNotice("ofxPylon::Camera") << "GUID:       " << cameraInfo.GetDeviceGUID();
+		} else if (cameraInfo.IsIpAddressAvailable()) {
+			// GigE
+			ofLogNotice("ofxPylon::Camera") << "IP address: " << cameraInfo.GetIpAddress();
+			ofLogNotice("ofxPylon::Camera") << "Subnet:     " << (cameraInfo.IsSubnetAddressAvailable() ? cameraInfo.GetSubnetAddress() : "N/A");
+			ofLogNotice("ofxPylon::Camera") << "Gateway:    " << (cameraInfo.IsDefaultGatewayAvailable() ? cameraInfo.GetDefaultGateway() : "N/A");
+		}
 	}
 	catch (Pylon::GenericException & e) {
 		ofLogError("ofxPylon::Camera") << e.GetDescription();
